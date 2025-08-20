@@ -2,7 +2,11 @@
 
 /* Design tokens */
 :root{
-  --bg:#FFBF00;      /* Soft white */
+  --font-redhat: "Red Hat Display", sans-serif;
+  --text-body: 20px;
+  --text-subtitle: 25px;
+  --text-title: 40px;
+  --bg:#e6ac0c;      /* Soft white */
   --fg:#2F2B2B;      /* Navy */
   --accent:#FFF7F1;  /* Golden yellow */
   --muted:#000000;   /* Subtle borders */
@@ -10,3 +14,10 @@
 
 html,body{ background:var(--bg); color:var(--fg); }
 :focus-visible{ outline:2px solid var(--accent); outline-offset:2px; }
+
+
+body {
+  font-family: var(--font-redhat);
+  font-size: var(--text-body);
+  line-height: 1.6;
+}
