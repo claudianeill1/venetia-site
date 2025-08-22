@@ -6,10 +6,10 @@
   --text-body: 20px;
   --text-subtitle: 25px;
   --text-title: 40px;
-  --bg:#efeff1;
-  --fg:#883333;
-  --accent:#FFF7F1;
-  --muted:#000000;
+  --bg:#FFEEE8;
+  --fg:#145172;
+  --accent:#FEB202;
+  --muted:#FE3902;
 }
 
 html,body{ background:var(--bg); color:var(--fg); }
