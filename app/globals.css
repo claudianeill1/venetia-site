@@ -6,10 +6,10 @@
   --text-body: 20px;
   --text-subtitle: 25px;
   --text-title: 40px;
-  --bg:#e6ac0c;      /* Soft white */
-  --fg:#2F2B2B;      /* Navy */
-  --accent:#FFF7F1;  /* Golden yellow */
-  --muted:#000000;   /* Subtle borders */
+  --bg:#efeff1;
+  --fg:#883333;
+  --accent:#FFF7F1;
+  --muted:#000000;
 }
 
 html,body{ background:var(--bg); color:var(--fg); }
