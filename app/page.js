@@ -78,7 +78,7 @@ export default function Page() {
           >
             <a
               className="block px-4 py-3 hover:opacity-80 hover:underline decoration-[0.5px] decoration-current underline-offset-4"
-              href="#about"
+              href="about"
               role="menuitem"
               onClick={() => setMenuOpen(false)}
             >
@@ -139,7 +139,7 @@ export default function Page() {
             {/* About label over blue column */}
             <a
               id="about"
-              href="#about"
+              href="about"
               className="absolute flex items-center justify-center text-center"
               style={{ left: "6vw", top: "18vh", width: "26vw", height: "22vh" }}
             >
