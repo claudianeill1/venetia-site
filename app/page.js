@@ -5,7 +5,7 @@ import { useEffect, useRef, useState } from "react";
 
 export default function Page() {
   // --- tweak these numbers ---
-  const Y = { left: "70vh", top: "-5vh", width: "45vw", height: "60vh", z: 3 };
+  const Y = { left: "35vw", top: "-5vh", width: "45vw", height: "60vh", z: 3 };
   const R = { right: "5vh", top: "40vh", width: "40vw", height: "60vh", z: 2 };
   const footerBandHeight = "15vh";
   // ---------------------------

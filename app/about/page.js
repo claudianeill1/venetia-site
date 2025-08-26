@@ -4,36 +4,21 @@
 import { useEffect, useRef, useState } from "react";
 
 export default function AboutPage() {
-  const footerBandHeight = "15vh";               // keep in sync with other pages
-  const headerBlock = { width: "40vw", height: "35vh" }; // blue block size
+  const footerBandHeight = "15vh";                      // keep in sync with other pages
+  const headerBlock = { width: "40vw", height: "35vh" };// blue block size
 
-  // MENU: hover OR click to open; outside-click / Esc to close
+  // ===== MENU: hover OR click to open; outside-click / Esc to close
   const [menuOpen, setMenuOpen] = useState(false);
   const menuRef = useRef(null);
 
-  // Scroll progress for line growth (0..1)
-  const [progress, setProgress] = useState(0);
   useEffect(() => {
-    let raf = 0;
-    const update = () => {
-      const doc = document.documentElement;
-      const h = doc.scrollHeight - doc.clientHeight;
-      const p = h > 0 ? doc.scrollTop / h : 1; // 0..1
-      setProgress(p);
-      raf = requestAnimationFrame(update);
-    };
-    raf = requestAnimationFrame(update);
-    return () => cancelAnimationFrame(raf);
-  }, []);
-
-  useEffect(() => {
-    function onDocMouseDown(e) {
+    const onDocMouseDown = (e) => {
       if (!menuRef.current) return;
       if (!menuRef.current.contains(e.target)) setMenuOpen(false);
-    }
-    function onKey(e) {
+    };
+    const onKey = (e) => {
       if (e.key === "Escape") setMenuOpen(false);
-    }
+    };
     document.addEventListener("mousedown", onDocMouseDown);
     document.addEventListener("keydown", onKey);
     return () => {
@@ -47,7 +32,7 @@ export default function AboutPage() {
       className="relative min-h-[100dvh] bg-[var(--bg)] text-[var(--fg)]"
       style={{ fontFamily: "var(--font-redhat)" }}
     >
-      {/* ===== Sticky Top-right MENU | CONTACT (same behavior, now fixed) ===== */}
+      {/* ===== Sticky Top-right MENU / CONTACT ===== */}
       <header className="fixed top-6 right-6 z-30">
         <div
           ref={menuRef}
@@ -81,7 +66,7 @@ export default function AboutPage() {
             }}
           >
             <a
-              className="block px-4 py-3 hover:opacity-80 hover:underline decoration-[0.5px] decoration-current underline-offset-4"
+              className="block px-4 py-3 hover:opacity-80 hover:underline decoration-[0.5px] underline-offset-4"
               href="/"
               role="menuitem"
               onClick={() => setMenuOpen(false)}
@@ -89,7 +74,7 @@ export default function AboutPage() {
               Home
             </a>
             <a
-              className="block px-4 py-3 hover:opacity-80 hover:underline decoration-[0.5px] decoration-current underline-offset-4"
+              className="block px-4 py-3 hover:opacity-80 hover:underline decoration-[0.5px] underline-offset-4"
               href="/#projects"
               role="menuitem"
               onClick={() => setMenuOpen(false)}
@@ -97,7 +82,7 @@ export default function AboutPage() {
               Projects
             </a>
             <a
-              className="block px-4 py-3 hover:opacity-80 hover:underline decoration-[0.5px] decoration-current underline-offset-4"
+              className="block px-4 py-3 hover:opacity-80 hover:underline decoration-[0.5px] underline-offset-4"
               href="/#research"
               role="menuitem"
               onClick={() => setMenuOpen(false)}
@@ -108,121 +93,157 @@ export default function AboutPage() {
         </div>
       </header>
 
-      {/* ===== Blue header block with "About" ===== */}
       {/* ===== Blue header block with "About" + intro text ===== */}
-<section className="relative z-10 flex">
-  {/* Blue block */}
-  <div
-    className="flex-shrink-0 relative"
-    style={{
-      width: headerBlock.width,
-      height: headerBlock.height,
-      background: "var(--fg)",
-    }}
-  >
-    <h1
-      className="absolute left-[5vw] bottom-[2vh] font-bold tracking-[0.25em]"
-      style={{ color: "var(--bg)", fontSize: "clamp(20px, 2.6vw, 34px)" }}
-    >
-      About
-    </h1>
-  </div>
+      <section className="relative z-10 flex">
+        {/* Blue block */}
+        <div
+          className="flex-shrink-0 relative"
+          style={{
+            width: headerBlock.width,
+            height: headerBlock.height,
+            background: "var(--fg)",
+          }}
+        >
+          <h1
+            className="absolute left-[5vw] bottom-[2vh] font-bold tracking-[0.25em]"
+            style={{ color: "var(--bg)", fontSize: "clamp(20px, 2.6vw, 34px)" }}
+          >
+            About
+          </h1>
+        </div>
 
-  {/* Text block (sits beside the blue block) */}
-  <div
-    className="flex items-center px-10 pt-35"
-    style={{
-      height: headerBlock.height,
-      flex: 1, // fills the rest of the row
-    }}
-  >
-    <p
-      className="max-w-[60vw] text-[18px] leading-relaxed"
-      style={{ color: "var(--fg)" }}
-    >
-      I’ve spent 25 years in healthcare, first on the frontline, then in health tech and transformation. I’m always looking for better ways to care, for approaches that make the system kinder and more effective. Along the way I’ve turned small, stubborn ideas into award-winning, patient-centred innovations, raising over £8 million to bring them to life. This isn’t, in fact it definitely, isn’t, because I’m a natural fundraiser, but because I don’t let go when change is needed. 
-    </p>
-  </div>
-</section>
-
-      {/* === Twin lines: visible from top, then grow from 35vh to bottom-10vh === */}
-<div aria-hidden className="pointer-events-none absolute inset-0 z-[1]">
-  {/* --- LEFT LINE @ 40vw --- */}
-  {/* static segment (0 -> 35vh) */}
-  <div
-    className="absolute"
-    style={{
-      left: "40vw",
-      top: 0,
-      height: "47vh",
-      width: "5px",
-      background: "var(--accent)",
-    }}
-  />
-  {/* animated segment (35vh -> bottom-10vh) */}
-  <div
-    className="absolute"
-    style={{
-      left: "40vw",
-      top: "47vh",
-      bottom: "10vh",
-      width: "5px",
-      overflow: "hidden", // clip the growing child
-    }}
-  >
-    <div
-      className="w-full h-full"
-      style={{
-        background: "var(--accent)",
-        borderRadius: "0 0 9999px 9999px", // rounded bottom cap
-        transformOrigin: "top",
-        transform: `scaleY(${Math.max(0, Math.min(1, progress))})`,
-      }}
-    />
-  </div>
-
-  {/* --- RIGHT LINE @ 42vw --- */}
-  {/* static segment */}
-  <div
-    className="absolute"
-    style={{
-      left: "40.7vw",
-      top: 0,
-      height: "47vh",
-      width: "5px",
-      background: "var(--accent)",
-    }}
-  />
-  {/* animated segment */}
-  <div
-    className="absolute"
-    style={{
-      left: "40.7vw",
-      top: "47vh",
-      bottom: "10vh",
-      width: "5px",
-      overflow: "hidden",
-    }}
-  >
-    <div
-      className="w-full h-full"
-      style={{
-        background: "var(--accent)",
-        borderRadius: "0 0 9999px 9999px",
-        transformOrigin: "top",
-        transform: `scaleY(${Math.max(0, Math.min(1, progress))})`,
-      }}
-    />
-  </div>
-</div>
-
-
-      {/* ===== Content area (empty for now; add timeline blocks later) ===== */}
-      <section className="relative z-10">
-        <div className="h-[120vh]" />
+        {/* Text block beside the blue block */}
+        <div
+          className="flex items-center px-10 pt-35"
+          style={{ height: headerBlock.height, flex: 1 }}
+        >
+          <p className="max-w-[60vw] text-[18px] leading-relaxed" style={{ color: "var(--fg)" }}>
+            I’ve spent 25 years in healthcare, first on the frontline, then in health tech
+            and transformation. I’m always looking for better ways to care, for approaches
+            that make the system kinder and more effective. Along the way I’ve turned small,
+            stubborn ideas into award-winning, patient-centred innovations, raising over £8
+            million to bring them to life. This isn’t—definitely isn’t—because I’m a natural
+            fundraiser, but because I don’t let go when change is needed.
+          </p>
+        </div>
       </section>
 
-      {/* ===== Footer band + footer (same as home) ===== */}
+      {/* ===== Rows in the 3-column layout (like your mock) ===== */}
+      <section className="relative z-10 mt-12 w-screen left-1/2 -translate-x-1/2">
+        <div className="mx-auto w-full max-w-[1400px] px-6 md:px-10">
+          {[
+            {
+              idx: "001",
+              label: ["Years", "Experience"],
+              metric: "/25+",
+              right: (
+                <h2 className="font-semibold leading-[1.05] text-[clamp(28px,3.6vw,56px)]">
+                  Nurse, Innovator,<br/>Strategist
+                </h2>
+              ),
+            },
+            {
+              idx: "002",
+              label: ["Awards &", "Fellowships"],
+              metric: "/10+",
+              right: (
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-x-12 gap-y-10">
+                  <div>
+                    <div className="font-mono tracking-wide mb-4 opacity-70">Awards</div>
+                    <ul className="space-y-3">
+                      <li>RCN Nurse of the Year</li>
+                      <li>RCN Innovation</li>
+                      <li>BMJ Patient engagement</li>
+                      <li>NIHR CLAHRC Patient Engagement</li>
+                      <li>Macmillan Integration Excellence</li>
+                    </ul>
+                  </div>
+                  <div>
+                    <div className="font-mono tracking-wide mb-4 opacity-70">Fellowships</div>
+                    <ul className="space-y-3">
+                      <li>NIHR CLAHRC Quality Improvement Fellowship</li>
+                      <li>NIHR Clinical Research Fellowship</li>
+                      <li>NHS Clinical Entrepreneur</li>
+                    </ul>
+                  </div>
+                </div>
+              ),
+            },
+            {
+              idx: "003",
+              label: ["Grants &", "Funding"],
+              metric: "/£8mill+",
+              right: (
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-x-12 gap-y-6">
+                  <div>
+                    <div className="opacity-70">NIHR</div>
+                    <div className="font-mono">/2</div>
+                  </div>
+                  <div>
+                    <div className="opacity-70">SBRI</div>
+                    <div className="font-mono">/1</div>
+                  </div>
+                  <div>
+                    <div className="opacity-70">Health Foundation</div>
+                    <div className="font-mono">/1</div>
+                  </div>
+                  <div>
+                    <div className="opacity-70">Hospital Charity Funds</div>
+                    <div className="font-mono">/2</div>
+                  </div>
+                </div>
+              ),
+            },
+            {
+              idx: "004",
+              label: ["Publications &", "Editorials"],
+              metric: "/9+",
+              right: (
+                <em className="font-semibold not-italic md:italic">
+                  List these with a hyperlink
+                </em>
+              ),
+            },
+          ].map((row) => (
+            <div
+              key={row.idx}
+              className="grid py-16 border-t first:border-t-0 gap-x-8 md:gap-x-12"
+              style={{
+                gridTemplateColumns: "minmax(220px,28vw) minmax(180px,22vw) 1fr",
+                borderColor: "color-mix(in srgb, var(--fg) 20%, transparent)",
+              }}
+            >
+              {/* LEFT: label + metric */}
+              <div>
+                <div className="text-[clamp(22px,2.6vw,34px)] leading-tight">
+                  {row.label.map((l) => (
+                    <div key={l}>{l}</div>
+                  ))}
+                </div>
+                <div className="mt-4 text-[clamp(36px,6vw,84px)] font-black leading-none">
+                  {row.metric}
+                </div>
+              </div>
+
+              {/* MIDDLE: yellow rule + index */}
+              <div className="relative flex items-start pt-3">
+                <span
+                className="h-[3px] w-full self-start"
+                style={{ background: "var(--accent)" }}
+                />
+                <span className="ml-4 mt-[-2px] font-mono tracking-[0.25em] text-sm opacity-70">
+                  {row.idx}
+                </span>
+              </div>
+
+              {/* RIGHT: rich content */}
+              <div>{row.right}</div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* ===== Footer band + footer ===== */}
       <section
         id="contact"
         className="relative"
