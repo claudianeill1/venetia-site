@@ -4,10 +4,9 @@
 import { useEffect, useRef, useState } from "react";
 
 export default function AboutPage() {
-  const footerBandHeight = "15vh";                      // keep in sync with other pages
-  const headerBlock = { width: "40vw", height: "35vh" };// blue block size
+  const footerBandHeight = "15vh";
 
-  // ===== MENU: hover OR click to open; outside-click / Esc to close
+  // MENU
   const [menuOpen, setMenuOpen] = useState(false);
   const menuRef = useRef(null);
 
@@ -29,7 +28,7 @@ export default function AboutPage() {
 
   return (
     <main
-      className="relative min-h-[100dvh] bg-[var(--bg)] text-[var(--fg)]"
+      className="relative min-h-[100dvh] bg-[var(--bg)] text-[var(--fg)] overflow-x-clip"
       style={{ fontFamily: "var(--font-redhat)" }}
     >
       {/* ===== Sticky Top-right MENU / CONTACT ===== */}
@@ -40,7 +39,7 @@ export default function AboutPage() {
           onMouseEnter={() => setMenuOpen(true)}
           onMouseLeave={() => setMenuOpen(false)}
         >
-          <nav className="flex items-center gap-3 uppercase tracking-[0.25em] text-[20px]">
+          <nav className="flex items-center gap-3 uppercase tracking-[0.25em] text-[18px] md:text-[20px]">
             <button
               type="button"
               className="px-1 hover:opacity-80 focus:outline-none"
@@ -65,44 +64,19 @@ export default function AboutPage() {
               borderColor: "color-mix(in srgb, var(--fg) 25%, transparent)",
             }}
           >
-            <a
-              className="block px-4 py-3 hover:opacity-80 hover:underline decoration-[0.5px] underline-offset-4"
-              href="/"
-              role="menuitem"
-              onClick={() => setMenuOpen(false)}
-            >
-              Home
-            </a>
-            <a
-              className="block px-4 py-3 hover:opacity-80 hover:underline decoration-[0.5px] underline-offset-4"
-              href="/#projects"
-              role="menuitem"
-              onClick={() => setMenuOpen(false)}
-            >
-              Projects
-            </a>
-            <a
-              className="block px-4 py-3 hover:opacity-80 hover:underline decoration-[0.5px] underline-offset-4"
-              href="/#research"
-              role="menuitem"
-              onClick={() => setMenuOpen(false)}
-            >
-              Research &amp; Reflections
-            </a>
+            <a className="block px-4 py-3 hover:opacity-80 hover:underline decoration-[0.5px] underline-offset-4" href="/" role="menuitem" onClick={() => setMenuOpen(false)}>Home</a>
+            <a className="block px-4 py-3 hover:opacity-80 hover:underline decoration-[0.5px] underline-offset-4" href="/#projects" role="menuitem" onClick={() => setMenuOpen(false)}>Projects</a>
+            <a className="block px-4 py-3 hover:opacity-80 hover:underline decoration-[0.5px] underline-offset-4" href="/#research" role="menuitem" onClick={() => setMenuOpen(false)}>Research &amp; Reflections</a>
           </div>
         </div>
       </header>
 
       {/* ===== Blue header block with "About" + intro text ===== */}
-      <section className="relative z-10 flex">
+      <section className="relative z-10 flex flex-col md:flex-row">
         {/* Blue block */}
         <div
-          className="flex-shrink-0 relative"
-          style={{
-            width: headerBlock.width,
-            height: headerBlock.height,
-            background: "var(--fg)",
-          }}
+          className="relative flex-shrink-0 w-full md:w-[40vw] h-[28vh] md:h-[35vh]"
+          style={{ background: "var(--fg)" }}
         >
           <h1
             className="absolute left-[5vw] bottom-[2vh] font-bold tracking-[0.25em]"
@@ -112,12 +86,12 @@ export default function AboutPage() {
           </h1>
         </div>
 
-        {/* Text block beside the blue block */}
+        {/* Text block beside / below the blue block */}
         <div
-          className="flex items-center px-10 pt-35"
-          style={{ height: headerBlock.height, flex: 1 }}
+          className="flex items-center w-full md:flex-1 px-6 md:px-10 py-6 md:py-35"
+          style={{ height: "auto", minHeight: "unset" }}
         >
-          <p className="max-w-[60vw] text-[18px] leading-relaxed" style={{ color: "var(--fg)" }}>
+          <p className="max-w-none md:max-w-[60vw] text-[16px] md:text-[18px] leading-relaxed" style={{ color:"var(--fg)" }}>
             I’ve spent 25 years in healthcare, first on the frontline, then in health tech
             and transformation. I’m always looking for better ways to care, for approaches
             that make the system kinder and more effective. Along the way I’ve turned small,
@@ -128,16 +102,16 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* ===== Rows in the 3-column layout (like your mock) ===== */}
-      <section className="relative z-10 mt-12 w-screen left-1/2 -translate-x-1/2">
-        <div className="mx-auto w-full max-w-[1400px] px-6 md:px-10">
+      {/* ===== Rows layout (mobile: single column, desktop: 3 columns) ===== */}
+      <section className="relative z-10 mt-8 md:mt-12 w-full md:w-screen md:left-1/2 md:-translate-x-1/2">
+        <div className="mx-auto w-full max-w-[1400px] px-4 sm:px-6 md:px-10">
           {[
             {
               idx: "001",
               label: ["Years", "Experience"],
               metric: "/25+",
               right: (
-                <h2 className="font-semibold leading-[1.05] text-[clamp(28px,3.6vw,56px)]">
+                <h2 className="font-semibold leading-[1.05] text-[clamp(26px,5vw,56px)]">
                   Nurse, Innovator,<br/>Strategist
                 </h2>
               ),
@@ -175,22 +149,10 @@ export default function AboutPage() {
               metric: "/£8mill+",
               right: (
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-x-12 gap-y-6">
-                  <div>
-                    <div className="opacity-70">NIHR</div>
-                    <div className="font-mono">/2</div>
-                  </div>
-                  <div>
-                    <div className="opacity-70">SBRI</div>
-                    <div className="font-mono">/1</div>
-                  </div>
-                  <div>
-                    <div className="opacity-70">Health Foundation</div>
-                    <div className="font-mono">/1</div>
-                  </div>
-                  <div>
-                    <div className="opacity-70">Hospital Charity Funds</div>
-                    <div className="font-mono">/2</div>
-                  </div>
+                  <div><div className="opacity-70">NIHR</div><div className="font-mono">/2</div></div>
+                  <div><div className="opacity-70">SBRI</div><div className="font-mono">/1</div></div>
+                  <div><div className="opacity-70">Health Foundation</div><div className="font-mono">/1</div></div>
+                  <div><div className="opacity-70">Hospital Charity Funds</div><div className="font-mono">/2</div></div>
                 </div>
               ),
             },
@@ -207,36 +169,37 @@ export default function AboutPage() {
           ].map((row) => (
             <div
               key={row.idx}
-              className="grid py-16 border-t first:border-t-0 gap-x-8 md:gap-x-12"
+              className="
+                grid py-10 md:py-16 border-t first:border-t-0
+                gap-y-4 md:gap-y-0 md:gap-x-8
+                md:[grid-template-columns:minmax(220px,28vw)_minmax(160px,22vw)_1fr]
+              "
               style={{
-                gridTemplateColumns: "minmax(220px,28vw) minmax(180px,22vw) 1fr",
                 borderColor: "color-mix(in srgb, var(--fg) 20%, transparent)",
               }}
             >
               {/* LEFT: label + metric */}
               <div>
-                <div className="text-[clamp(22px,2.6vw,34px)] leading-tight">
-                  {row.label.map((l) => (
-                    <div key={l}>{l}</div>
-                  ))}
+                <div className="text-[clamp(20px,5vw,34px)] leading-tight">
+                  {row.label.map((l) => <div key={l}>{l}</div>)}
                 </div>
-                <div className="mt-4 text-[clamp(36px,6vw,84px)] font-black leading-none">
+                <div className="mt-2 md:mt-4 text-[clamp(32px,10vw,84px)] font-black leading-none">
                   {row.metric}
                 </div>
+
+                {/* Mobile only: small top-aligned rule */}
+                <div className="mt-3 h-[2px] w-16 bg-[var(--accent)] md:hidden" />
               </div>
 
-              {/* MIDDLE: yellow rule + index */}
-              <div className="relative flex items-start pt-3">
-                <span
-                className="h-[3px] w-full self-start"
-                style={{ background: "var(--accent)" }}
-                />
+              {/* MIDDLE: yellow rule + index (desktop only, top-aligned) */}
+              <div className="hidden md:flex items-start pt-3">
+                <span className="h-[3px] w-full self-start" style={{ background: "var(--accent)" }} />
                 <span className="ml-4 mt-[-2px] font-mono tracking-[0.25em] text-sm opacity-70">
                   {row.idx}
                 </span>
               </div>
 
-              {/* RIGHT: rich content */}
+              {/* RIGHT: content */}
               <div>{row.right}</div>
             </div>
           ))}
@@ -244,11 +207,7 @@ export default function AboutPage() {
       </section>
 
       {/* ===== Footer band + footer ===== */}
-      <section
-        id="contact"
-        className="relative"
-        style={{ height: footerBandHeight, background: "var(--bg)" }}
-      />
+      <section id="contact" className="relative" style={{ height: footerBandHeight, background: "var(--bg)" }} />
       <footer className="relative">
         <div className="w-full bg-[var(--fg)] text-[var(--bg)]">
           <div className="mx-auto max-w-6xl px-6 py-8 text-center text-[11px] tracking-[0.25em] uppercase">
